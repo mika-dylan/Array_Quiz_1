@@ -2,6 +2,8 @@
 #include <stdexcept>
 #include "Array.h"
 
+using namespace std;
+
 // Constructor: allocate array with given capacity
 Array::Array(int capacity) : capacity_(capacity), size_(0) {
     data_ = new int[capacity_];
@@ -24,17 +26,58 @@ bool Array::Add(int value) {
 
 // Insert value at specified index, shifting elements to the right
 bool Array::InsertAt(int index, int value) {
-    return false;
+    if (size_ == capacity_) {
+        cout << "Array is already full." << endl;
+        return false;
+    }
+    
+    if (index < 0 || index >= size_){
+        cout << "Invalid" << endl;
+        return false;
+    }
+
+    for (int i = size_; i > index; i--){
+        data_[i] = data_[i-1];
+    }
+
+
+    data_[index] = value;
+    size_++;
+    return true;
 }
 
 // Delete element at index, shifting elements left
 bool Array::DeleteAt(int index) {
-    return false;
+    // if (size_ == capacity_) {
+    //     cout << "Array is already full." << endl;
+    //     return false;
+    // }
+
+    if (index < 0 || index >= size_){
+        cout << "Invalid" << endl;
+        return false;
+    }
+
+    for (int i = index; i < size_ - 1; i++){
+        data_[i] = data_[i+1];
+    }
+    size_--;
+    return true;
 }
 
 // Update element at index
-bool Array::UpdateAt(int index, int new_value) {
-    return false;
+bool Array::UpdateAt(int index, int new_value) {  
+    // if (size_ == capacity_) {
+    //     cout << "Array is already full." << endl;
+    //     return false;
+    // }
+    if (index < 0 || index >= size_){
+        cout << "Invalid" << endl;
+        return false;
+    }
+      
+    data_[index] = new_value;
+    return true;
 }
 
 // Print all elements
